@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | Lumina Grand</title>
+    <meta name="description" content="Manage your reservations and profile at Lumina Grand.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-beige">
+    <header id="main-nav" class="scrolled">
+        <nav class="container">
+            <div class="logo">LUMINA GRAND</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#rooms">Rooms</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-page">
+        <div class="dashboard-container container">
+            <!-- Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="user-profile-brief">
+                    <div class="avatar">JD</div>
+                    <div class="user-info">
+                        <span class="user-name">John Doe</span>
+                        <span class="user-email">john.doe@example.com</span>
+                    </div>
+                </div>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li><a href="#" class="active">My Bookings</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Payments</a></li>
+                        <li><a href="#">Settings</a></li>
+                    </ul>
+                </nav>
+                <div class="sidebar-footer">
+                    <a href="#" class="logout-link">Logout</a>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <section class="dashboard-content">
+                <div class="content-header">
+                    <h2>My Bookings</h2>
+                    <p>Manage your current and past reservations.</p>
+                </div>
+
+                <div class="booking-cards-list" id="booking-cards-container"></div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

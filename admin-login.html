@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Lumina Grand</title>
+    <meta name="description" content="Admin login for Lumina Grand.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        if (sessionStorage.getItem('isAdmin') === 'true') {
+            window.location.replace('admin.html');
+        }
+    </script>
+</head>
+<body class="bg-beige">
+    <header id="main-nav" class="scrolled">
+        <nav class="container">
+            <div class="logo">LUMINA GRAND <span class="admin-label">ADMIN</span></div>
+        </nav>
+    </header>
+
+    <main class="admin-page">
+        <div id="admin-login-wrapper" class="container centered-content" style="padding-top: 50px;">
+            <section class="booking-container" style="justify-content: center;">
+                <div class="booking-form-card" style="width: 100%; max-width: 500px;">
+                    <div class="form-header">
+                        <span class="subtitle">AUTHENTICATION</span>
+                        <h2>Admin Login</h2>
+                    </div>
+                    
+                    <form id="admin-login-form" novalidate>
+                        <div id="admin-login-error" class="error-message" style="display: none;"></div>
+                        <div class="form-group">
+                            <label for="admin-username">Username</label>
+                            <input type="text" id="admin-username" placeholder="admin" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="admin-password">Password</label>
+                            <input type="password" id="admin-password" placeholder="••••••" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary full-width">Login to Dashboard</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
