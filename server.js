@@ -1,15 +1,17 @@
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 
 const app = express();
 
-const path = require("path");
-
-app.use(express.static(path.join(__dirname)));
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname)));
 
-// Helper: generate demo date strings relative to today
+// =====================
+// BOOKINGS
+// =====================
+
 function offsetDate(days) {
     const d = new Date();
     d.setDate(d.getDate() + days);
@@ -26,79 +28,39 @@ let bookings = [
         nights: 4,
         total: 1800,
         status: "Confirmed"
-    },
-    {
-        id: "LG-9042",
-        name: "Jane Smith",
-        room: "skyline",
-        checkIn: offsetDate(15),
-        checkOut: offsetDate(18),
-        nights: 3,
-        total: 1740,
-        status: "Pending"
-    },
-    {
-        id: "LG-7210",
-        name: "John Doe",
-        room: "garden-vista",
-        checkIn: offsetDate(-10),
-        checkOut: offsetDate(-7),
-        nights: 3,
-        total: 960,
-        status: "Confirmed"
-    },
-    {
-        id: "LG-6511",
-        name: "John Doe",
-        room: "heritage",
-        checkIn: offsetDate(5),
-        checkOut: offsetDate(7),
-        nights: 2,
-        total: 560,
-        status: "Cancelled"
     }
 ];
 
-// GET /bookings — return all bookings
+// GET
 app.get("/bookings", (req, res) => {
     res.json(bookings);
 });
 
-// POST /bookings — create a new booking
+// POST
 app.post("/bookings", (req, res) => {
     const booking = req.body;
     bookings.push(booking);
-    res.status(201).json({ success: true, message: "Booking created", booking });
+    res.json({ success: true, booking });
 });
 
-// PUT /bookings/:id — update booking status (approve / reject)
+// PUT
 app.put("/bookings/:id", (req, res) => {
     const booking = bookings.find(b => b.id === req.params.id);
-    if (!booking) {
-        return res.status(404).json({ success: false, message: "Booking not found" });
-    }
-    // Only allow updating fields sent in the body
+    if (!booking) return res.status(404).json({ error: "Not found" });
+
     Object.assign(booking, req.body);
-    res.json({ success: true, message: "Booking updated", booking });
+    res.json({ success: true, booking });
 });
 
-// DELETE /bookings/:id — permanently remove a booking
+// DELETE
 app.delete("/bookings/:id", (req, res) => {
-    const before = bookings.length;
     bookings = bookings.filter(b => b.id !== req.params.id);
-    if (bookings.length === before) {
-        return res.status(404).json({ success: false, message: "Booking not found" });
-    }
-    res.json({ success: true, message: "Booking deleted" });
+    res.json({ success: true });
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-    console.log("Server running on port " + PORT);
-});
-
-
+// =====================
+// USERS
+// =====================
 
 let users = [];
 
@@ -120,10 +82,23 @@ app.post('/login', (req, res) => {
         });
     }
 
-    res.json({
-        success: true,
-        user
-    });
-    app.get("/", (req, res) => {
+    res.json({ success: true, user });
+});
+
+// =====================
+// FRONTEND ROUTE
+// =====================
+
+app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
+});
+
+// =====================
+// START SERVER
+// =====================
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log("Server running on port " + PORT);
 });
